@@ -28,7 +28,6 @@ const registerAndLogin = async (userProps = {}) => {
   // Create a user to sign in with
   const user = await UserService.create({ ...mockUser, ...userProps });
 
-  // ...then sign in
   const { email } = user;
   await agent.post('/api/v1/users/sessions').send({ email, password });
   return [agent, user];
