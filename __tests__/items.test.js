@@ -55,7 +55,7 @@ describe('items', () => {
     });
   });
 
-  it.only('GET /api/v1/items returns all items associated with the authenticated User', async () => {
+  it('GET /api/v1/items returns all items associated with the authenticated User', async () => {
     // create a user
     const [agent, user] = await registerAndLogin();
     // add a second user with items
@@ -86,7 +86,7 @@ describe('items', () => {
     const item = await Item.insert({
       description: 'apples',
       qty: 6,
-      user_id: user.id,
+      userId: user.id,
     });
     const resp = await agent
       .put(`/api/v1/items/${item.id}`)
@@ -116,7 +116,7 @@ describe('items', () => {
     const item = await Item.insert({
       description: 'apples',
       qty: 6,
-      user_id: user.id,
+      userId: user.id,
     });
     const resp = await agent.delete(`/api/v1/items/${item.id}`);
     expect(resp.status).toBe(200);
