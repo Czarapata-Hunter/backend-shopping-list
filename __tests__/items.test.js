@@ -41,7 +41,7 @@ describe('items', () => {
   afterAll(() => {
     pool.end();
   });
-  it.only('POST /api/v1/items creates a new shopping item with the current user', async () => {
+  it('POST /api/v1/items creates a new shopping item with the current user', async () => {
     const [agent, user] = await registerAndLogin();
     const newItem = { description: 'eggs', qty: 12 };
     const resp = await agent.post('/api/v1/items').send(newItem);
@@ -55,7 +55,7 @@ describe('items', () => {
     });
   });
 
-  it('GET /api/v1/items returns all items associated with the authenticated User', async () => {
+  it.only('GET /api/v1/items returns all items associated with the authenticated User', async () => {
     // create a user
     const [agent, user] = await registerAndLogin();
     // add a second user with items
@@ -63,12 +63,12 @@ describe('items', () => {
     const user1Item = await Item.insert({
       description: 'apples',
       qty: 6,
-      user_id: user.id,
+      userId: user.id,
     });
     await Item.insert({
       description: 'eggs',
       qty: 12,
-      user_id: user2.id,
+      userId: user2.id,
     });
     const resp = await agent.get('/api/v1/items');
     expect(resp.status).toEqual(200);
